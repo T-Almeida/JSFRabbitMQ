@@ -43,7 +43,8 @@ public class ControllerView implements DisplayMessage{
         try {
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
-            Connection connection = factory.newConnection();
+
+            connection = factory.newConnection();
             Channel channel = connection.createChannel();
 
             channel.exchangeDeclare(DisplayMessage.EXCHANGE_NAME, "fanout");
@@ -63,7 +64,8 @@ public class ControllerView implements DisplayMessage{
     {
         try {
             System.out.println("Close connection");
-            connection.close();
+            if (!connection.isOpen())
+                connection.close();
         } catch (IOException ex) {
             Logger.getLogger(ControllerView.class.getName()).log(Level.SEVERE, null, ex);
         }
