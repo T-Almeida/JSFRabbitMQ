@@ -10,6 +10,6 @@ package pt.ua.ies;
  * @author ASUS
  */
 public interface DisplayMessage {
-    String QUEUE_NAME = "Avisos";
+    String EXCHANGE_NAME = "Avisos";
     void display(String message);
 }

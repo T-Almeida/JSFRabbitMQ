@@ -19,26 +19,19 @@ import java.util.logging.Logger;
  * @author ASUS
  */
 public class Main {
-    private final static String QUEUE_NAME = "Avisos";
+    private final static String EXCHANGE_NAME = "Avisos";
     public static void main(String[] args) {
         try {
-            /**
-             * Connection to the server
-             */
             ConnectionFactory factory = new ConnectionFactory();
             factory.setHost("localhost");
             Connection connection = factory.newConnection();
             Channel channel = connection.createChannel();
-            /**
-             * declare a queue to send the message
-             * Operation is idempotent (only create if dont exist)
-             */
-            
-            channel.queueDeclare(QUEUE_NAME, false, false, false, null);
+
+            channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
             
             
             String message = "Random Message " + new Random().nextInt(1000);
-            channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+            channel.basicPublish(EXCHANGE_NAME, "", null, message.getBytes());
             System.out.println(" [x] Sent '" + message + "'");
             
             /**

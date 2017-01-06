@@ -6,11 +6,14 @@
     <h:head>
         <title>Facelet Title</title>
     </h:head>
-    <h:body>
-        <h:form>
+    <h:body >
+        <h:form>onunload
             <p:poll interval="10" listener="#{controllerView.refresh()}" /> 
+            
+
         </h:form>
         Hello from Facelets
+
         <br />
         <h:outputText value="Mensagem recebida: #{controllerView.recive}"/>
         <br/>
